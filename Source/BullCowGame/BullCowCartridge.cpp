@@ -7,7 +7,7 @@ void UBullCowCartridge::BeginPlay() // When the game starts
     PrintLine(TEXT("Chao mung toi game Trau Bo Dai Chien"));
     PrintLine(TEXT("Doan 4 ki tu")); // so co the thay doi
     PrintLine(TEXT("Nhan Enter de tiep tuc..."));
-    HiddenWord = "cake";
+    InitGame();
 }
 
 void UBullCowCartridge::OnInput(const FString &Input) // When the player hits enter
@@ -21,4 +21,10 @@ void UBullCowCartridge::OnInput(const FString &Input) // When the player hits en
     {
         PrintLine(TEXT("Lose!"));
     }
+}
+
+void UBullCowCartridge::InitGame()
+{
+    HiddenWord = "cake";
+    Lives = 4;
 }
