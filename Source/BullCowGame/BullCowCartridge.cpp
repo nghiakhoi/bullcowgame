@@ -4,10 +4,14 @@
 void UBullCowCartridge::BeginPlay() // When the game starts
 {
     Super::BeginPlay();
+    SetupGame();
+
+    PrintLine(TEXT("Hidden Word là: %s"), *HiddenWord); //Debug line
+
     PrintLine(TEXT("Chao mung toi game Trau Bo Dai Chien"));
-    PrintLine(TEXT("Doan 4 ki tu")); // so co the thay doi
-    PrintLine(TEXT("Nhan Enter de tiep tuc..."));
-    InitGame();
+    PrintLine(TEXT("Doan %i ki tu"), HiddenWord.Len());
+    PrintLine(TEXT("Nhap vao tu ban doan va nhan Enter de tiep tuc..."));
+    // Nhac nguoi choi doan chu
 }
 
 void UBullCowCartridge::OnInput(const FString &Input) // When the player hits enter
@@ -19,12 +23,17 @@ void UBullCowCartridge::OnInput(const FString &Input) // When the player hits en
     }
     else
     {
+        if (Input.Len() != HiddenWord.Len())
+        {
+            PrintLine(TEXT("Tu an co %i ki tu, thu lai sau nhe!"), HiddenWord.Len());
+        }
+
         PrintLine(TEXT("Lose!"));
     }
 }
 
-void UBullCowCartridge::InitGame()
+void UBullCowCartridge::SetupGame()
 {
-    HiddenWord = "cake";
+    HiddenWord = "cakes";
     Lives = 4;
 }
