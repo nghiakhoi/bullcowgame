@@ -5,35 +5,48 @@ void UBullCowCartridge::BeginPlay() // When the game starts
 {
     Super::BeginPlay();
     SetupGame();
-
     PrintLine(TEXT("Hidden Word là: %s"), *HiddenWord); //Debug line
-
-    PrintLine(TEXT("Chao mung toi game Trau Bo Dai Chien"));
-    PrintLine(TEXT("Doan %i ki tu"), HiddenWord.Len());
-    PrintLine(TEXT("Nhap vao tu ban doan va nhan Enter de tiep tuc..."));
-    // Nhac nguoi choi doan chu
 }
 
 void UBullCowCartridge::OnInput(const FString &Input) // When the player hits enter
 {
-    ClearScreen();
-    if (Input == HiddenWord)
+    if (bGameOver)
     {
-        PrintLine(TEXT("Win!"));
+        ClearScreen();
+        SetupGame();
     }
     else
     {
-        if (Input.Len() != HiddenWord.Len())
+        if (Input == HiddenWord)
         {
-            PrintLine(TEXT("Tu an co %i ki tu, thu lai sau nhe!"), HiddenWord.Len());
+            PrintLine(TEXT("Won!"));
+            EndGame();
         }
-
-        PrintLine(TEXT("Lose!"));
+        else
+        {
+            if (Input.Len() != HiddenWord.Len())
+            {
+                PrintLine(TEXT("Tu an co %i ki tu. \nBan da thua!"), HiddenWord.Len());
+                EndGame();
+            }
+        }
     }
 }
 
 void UBullCowCartridge::SetupGame()
 {
+    PrintLine(TEXT("Chao mung toi game Trau Bo Dai Chien"));
+
     HiddenWord = "cakes";
     Lives = 4;
+    bGameOver = false;
+
+    PrintLine(TEXT("Doan %i ki tu"), HiddenWord.Len());
+    PrintLine(TEXT("Nhap vao tu ban doan va nhan Enter de tiep tuc..."));
+}
+
+void UBullCowCartridge::EndGame()
+{
+    bGameOver = true;
+    PrintLine(TEXT("Press Enter to play again!"));
 }
