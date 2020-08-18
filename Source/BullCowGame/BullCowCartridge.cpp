@@ -24,9 +24,19 @@ void UBullCowCartridge::OnInput(const FString &Input) // When the player hits en
         }
         else
         {
-            if (Input.Len() != HiddenWord.Len())
+            --Lives;
+            PrintLine(TEXT("Mat 1 mang!"));
+            PrintLine(TEXT("%i"), Lives);
+            if (Lives > 0)
             {
-                PrintLine(TEXT("Tu an co %i ki tu. \nBan da thua!"), HiddenWord.Len());
+                if (Input.Len() != HiddenWord.Len())
+                {
+                    PrintLine(TEXT("Ban da doan sai, hay thu lai lan nua! Ban con %i mang!"), Lives);
+                }
+            }
+            else
+            {
+                PrintLine(TEXT("Het mang roi! Ban da thua roi!"));
                 EndGame();
             }
         }
@@ -38,7 +48,7 @@ void UBullCowCartridge::SetupGame()
     PrintLine(TEXT("Chao mung toi game Trau Bo Dai Chien"));
 
     HiddenWord = "cakes";
-    Lives = 4;
+    Lives = HiddenWord.Len();
     bGameOver = false;
 
     PrintLine(TEXT("Doan %i ki tu"), HiddenWord.Len());
